@@ -49,22 +49,24 @@
         <% end %>
       </div>
 
-      <div class="col">
-        <%=
-          link_to "#",
-            data: { 
-              toggle: "modal", 
-              target: "##{dom_id(user)}_pending"
-            } do %>
+      <% if current_user == @user %>
+        <div class="col">
+          <%=
+            link_to "#",
+              data: { 
+                toggle: "modal", 
+                target: "##{dom_id(user)}_pending"
+              } do %>
 
-          <span class="font-weight-bold">
-            <%= user.pending.size %>
-          </span>
-          
-          pending
+            <span class="font-weight-bold">
+              <%= user.pending.size %>
+            </span>
 
-        <% end %>
-      </div>
+            pending
+
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
     <div class="row mb-3">
