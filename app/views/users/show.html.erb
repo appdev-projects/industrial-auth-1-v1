@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<% if (!@user.private?) | (@user.private? & @user.followers.exists?(id: current_user.id)) %>
+<% if (@user == current_user) | (!@user.private?) | (@user.private? & @user.followers.exists?(id: current_user.id)) %>
   <div class="row mb-2">
     <div class="col-md-6 offset-md-3">
       <%= render "users/profile_nav", user: @user %>
