@@ -1,6 +1,14 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
 
+  before_action :qualify_current_user, only: [:edit, :update, :destroy]
+
+  def qualify_current_user
+    if @comment.photo.owner != current_user
+      redirect_back fallback_location: root_path, alert: "Nice try, suckah"
+    end
+  end
+
   # GET /comments or /comments.json
   def index
     @comments = Comment.all
