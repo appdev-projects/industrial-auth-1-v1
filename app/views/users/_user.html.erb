@@ -1,19 +1,16 @@
 <div class="media">
   <%= image_tag user.avatar_image, class: "mr-3 rounded-circle", width: 128 %>
-
   <div class="media-body">
     <div class="d-flex justify-content-between align-items-center">
       <h1 class="mt-0 mb-3 display-4">
         <%= user.username %>
       </h1>
-
       <div>
         <span class="badge badge-secondary">
           <%= user.private? ? "Private" : "Public" %>
         </span>
       </div>
     </div>
-
     <div class="row mb-4">
       <div class="col">
         <%=
@@ -22,16 +19,12 @@
               toggle: "modal", 
               target: "##{dom_id(user)}_followers"
             } do %>
-
           <span class="font-weight-bold">
             <%= user.followers.size %>
           </span>
-          
           followers
-
         <% end %>
       </div>
-
       <div class="col">
         <%=
           link_to "#",
@@ -39,13 +32,10 @@
               toggle: "modal", 
               target: "##{dom_id(user)}_following"
             } do %>
-
           <span class="font-weight-bold">
             <%= user.leaders.size %>
           </span>
-          
           following
-
         <% end %>
       </div>
       <% if user == current_user %>
@@ -56,46 +46,34 @@
                 toggle: "modal", 
                 target: "##{dom_id(user)}_pending"
               } do %>
-
             <span class="font-weight-bold">
               <%= user.pending.size %>
             </span>
-            
             pending
-
           <% end %>
         </div>
       <% end %>
     </div>
-
     <div class="row mb-3">
       <div class="col">
         <% follow_request = current_user.pending_received_follow_requests.find_by(sender: @user) %>
-
         <% if follow_request %>
           <p class="lead text-center">
             <%= @user.username %> has sent you a follow request.
           </p>
-
           <% follow_request.status = "accepted" %>
-
           <%= form_with(model: follow_request) do |form| %>
             <%= form.hidden_field :status %>
-
             <%= form.submit "Accept follow request", class: "btn btn-outline-success btn-block mb-3" %>
           <% end %>
-
           <% follow_request.status = "rejected" %>
-
           <%= form_with(model: follow_request) do |form| %>
             <%= form.hidden_field :status %>
-
             <%= form.submit "Reject follow request", class: "btn btn-outline-danger btn-block mb-3" %>
           <% end %>
         <% end %>
       </div>
     </div>
-
     <div class="row mb-4">
       <div class="col">
         <% follow_request = current_user.sent_follow_requests.find_by(recipient: @user) %>
@@ -112,21 +90,17 @@
         <% end %>
       </div>
     </div>
-
     <h3 class="h5">
       <%= user.name %>
     </h3>
-
     <p>
       <%= user.bio %>
     </p>
-
     <p>
       <%= only_host_and_path(user.website) %>
     </p>
   </div>
 </div>
-
 <%=
   render "users/connected_users_modal.html.erb",
     user: user,
@@ -134,7 +108,6 @@
     description: "followers",
     target: "#{dom_id(user)}_followers"
 %>
-
 <%=
   render "users/connected_users_modal.html.erb",
     user: user,
@@ -142,7 +115,6 @@
     description: "following",
     target: "#{dom_id(user)}_following"
 %>
-
 <%=
   render "users/connected_users_modal.html.erb",
     user: user,
