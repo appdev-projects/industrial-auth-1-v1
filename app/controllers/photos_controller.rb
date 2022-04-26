@@ -1,6 +1,14 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit update destroy ]
 
+  before_action :qualify_current_user, only: [:edit, :update, :destroy]
+
+  def qualify_current_user
+    if @photo.owner != current_user
+      redirect_back fallback_location: root_path, alert: "Nice try, suckah"
+    end
+  end
+
   # GET /photos or /photos.json
   def index
     @photos = Photo.all
@@ -37,6 +45,11 @@ class PhotosController < ApplicationController
 
   # PATCH/PUT /photos/1 or /photos/1.json
   def update
+    
+    if @photo.owner != current_user
+      redirect_back fallback_location: root_path, alert: "Nice try, suckah"
+    end
+
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: "Photo was successfully updated." }
