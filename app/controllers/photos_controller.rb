@@ -50,11 +50,16 @@ class PhotosController < ApplicationController
 
   # DELETE /photos/1 or /photos/1.json
   def destroy
-    @photo.destroy
-    respond_to do |format|
-      format.html { redirect_back fallback_location: root_url, notice: "Photo was successfully destroyed." }
-      format.json { head :no_content }
+    if current_user == @photo.owner
+      @photo.destroy
+      respond_to do |format|
+        format.html { redirect_back fallback_location: root_url, notice: "Photo was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      redirect_back fallback_location: root_url, notice: "You can't destroy what is not yours"
     end
+
   end
 
   private
