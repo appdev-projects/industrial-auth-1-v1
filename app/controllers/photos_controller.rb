@@ -26,6 +26,9 @@ class PhotosController < ApplicationController
 
   # GET /photos/1/edit
   def edit
+    if @photo.owner != current_user
+      redirect_back fallback_location: root_path, alert: "You are not the owner of this photo."
+    end
   end
 
   # POST /photos or /photos.json
