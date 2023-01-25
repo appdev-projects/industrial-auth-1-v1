@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root "users#feed"
 
-  devise_for :users
+  devise_for :users, except: [:index]
   
-  resources :comments
+  resources :comments, except: [:index, :show, :new]
   resources :follow_requests, except: [:index, :show, :new, :edit ]
   resources :likes, only: [:create, :destroy]
   resources :photos, except: [:index, :show]
