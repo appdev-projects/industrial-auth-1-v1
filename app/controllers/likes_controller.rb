@@ -1,5 +1,14 @@
 class LikesController < ApplicationController
   before_action :set_like, only: %i[ show edit update destroy ]
+  before_action :verify_user
+
+  def verify_user
+    if current_user != @comment.author
+      redirect_back(fallback_location: root_url, alert: "Sorry, you can't do that")
+    end
+  end
+
+
 
   # GET /likes or /likes.json
   def index

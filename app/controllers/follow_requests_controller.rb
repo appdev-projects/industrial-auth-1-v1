@@ -1,5 +1,13 @@
 class FollowRequestsController < ApplicationController
   before_action :set_follow_request, only: %i[ show edit update destroy ]
+  before_action :verify_user
+
+  def verify_user
+    if current_user != @follow_request.sender
+      redirect_back(fallback_location: root_url, alert: "Sorry, you can't do that")
+    end
+  end
+
 
   # GET /follow_requests or /follow_requests.json
   def index
