@@ -24,4 +24,5 @@ class Comment < ApplicationRecord
   belongs_to :photo, counter_cache: true
 
   validates :body, presence: true
+
 end
