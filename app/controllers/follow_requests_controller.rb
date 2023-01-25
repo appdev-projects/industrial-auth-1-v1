@@ -1,6 +1,6 @@
 class FollowRequestsController < ApplicationController
   before_action :set_follow_request, only: %i[ show edit update destroy ]
-  before_action :verify_user
+  before_action :verify_user, only: %i[ create destroy]
 
   def verify_user
     if current_user != @follow_request.sender

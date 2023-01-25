@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit update destroy ]
-  before_action :ensure_current_user_is_owner
+  before_action :ensure_current_user_is_owner, only: %i[ edit update create destroy]
 
   def ensure_current_user_is_owner
     if current_user != @photo.owner
@@ -19,7 +19,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/new
   def new
-    @photo = Photo.new( user_id: :current_user)
+    @photo = Photo.new
   end
 
   # GET /photos/1/edit

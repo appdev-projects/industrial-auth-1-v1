@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
-  before_action :verify_user
+  before_action :verify_user, only: %i[ edit update create destroy]
 
   def verify_user
     if current_user != @comment.author

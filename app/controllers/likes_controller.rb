@@ -1,9 +1,9 @@
 class LikesController < ApplicationController
   before_action :set_like, only: %i[ show edit update destroy ]
-  before_action :verify_user
+  before_action :verify_user, only: %i[ edit create ]
 
   def verify_user
-    if current_user != @comment.author
+    if current_user != @like.fan
       redirect_back(fallback_location: root_url, alert: "Sorry, you can't do that")
     end
   end
