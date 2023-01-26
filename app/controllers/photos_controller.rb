@@ -8,15 +8,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  # GET /photos or /photos.json
-  # def index
-  #   @photos = Photo.all
-  # end
-
-  # GET /photos/1 or /photos/1.json
-  def show
-  end
-
   # GET /photos/new
   def new
     @photo = Photo.new
@@ -80,3 +71,12 @@ class PhotosController < ApplicationController
     params.require(:photo).permit(:image, :comments_count, :likes_count, :caption, :owner_id)
   end
 end
+
+# GET /photos or /photos.json
+# def index
+#   @photos = Photo.all
+# end
+
+# GET /photos/1 or /photos/1.json
+# def show
+# end
