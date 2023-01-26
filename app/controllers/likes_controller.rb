@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
-  before_action :set_like, only: %i[ show edit update destroy ]
+  before_action :set_like, only: %i[ destroy ]
+  before_action :ensure_authorized_user, only: %i[ create destroy ]
 
   # POST /likes or /likes.json
   def create
@@ -45,26 +46,34 @@ class LikesController < ApplicationController
     @like = Like.find(params[:id])
   end
 
+  def ensure_authorized_user
+    if current_user == @like.fan
+      true
+    else
+      false
+    end
+  end
+
   # Only allow a list of trusted parameters through.
   def like_params
     params.require(:like).permit(:fan_id, :photo_id)
   end
 end
 
-  # GET /likes or /likes.json
-  # def index
-  #   @likes = Like.all
-  # end
+# GET /likes or /likes.json
+# def index
+#   @likes = Like.all
+# end
 
-  # GET /likes/1 or /likes/1.json
-  # def show
-  # end
+# GET /likes/1 or /likes/1.json
+# def show
+# end
 
-  # GET /likes/new
-  # def new
-  #   @like = Like.new
-  # end
+# GET /likes/new
+# def new
+#   @like = Like.new
+# end
 
-  # GET /likes/1/edit
-  # def edit
-  # end
+# GET /likes/1/edit
+# def edit
+# end

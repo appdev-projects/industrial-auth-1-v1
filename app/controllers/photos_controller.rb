@@ -1,8 +1,8 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit update destroy ]
-  before_action :ensure_current_user_is_owner, only: [:update, :destroy]
+  before_action :ensure_authorized_user, only: %i[ update destroy ]
 
-  def ensure_current_user_is_owner
+  def ensure_authorized_user
     if current_user != @photo.owner
       redirect_back(fallback_location: root_url, alert: "You are not authorized for that")
     end

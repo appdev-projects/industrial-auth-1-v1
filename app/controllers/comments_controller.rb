@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show edit update destroy ]
-
+  before_action :set_comment, only: %i[ edit update destroy ]
+  before_action :ensure_authorized_user, only: %i[ edit create update destroy ]
+  
   # GET /comments/1/edit
   def edit
   end
@@ -48,10 +49,21 @@ class CommentsController < ApplicationController
 
   private
 
+
+
   # Use callbacks to share common setup or constraints between actions.
   def set_comment
     @comment = Comment.find(params[:id])
   end
+
+  def ensure_authorized_user
+    if current_user == @comment.author 
+      true
+    else
+      false
+    end
+  end 
+
 
   # Only allow a list of trusted parameters through.
   def comment_params
