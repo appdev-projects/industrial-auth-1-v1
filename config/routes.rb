@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   root "users#feed"
 
   devise_for :users
-  
-  resources :comments
-  resources :follow_requests
-  resources :likes
-  resources :photos
+
+  resources :comments, only: [:create, :edit, :update, :destroy]
+  resources :follow_requests, only: [:create, :update, :destroy]
+  resources :likes, only: [:create, :destroy]
+  resources :photos, only: [:create, :new, :edit, :update, :destroy] 
 
   get ":username" => "users#show", as: :user
   get ":username/liked" => "users#liked", as: :liked
