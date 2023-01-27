@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
   before_action :set_like, only: %i[ destroy ]
-  before_action :ensure_authorized_user, only: %i[ create destroy ]
+  before_action :ensure_authorized_user, only: %i[ destroy ]
 
   # POST /likes or /likes.json
   def create
@@ -30,6 +30,10 @@ class LikesController < ApplicationController
   #   end
   # end
 
+  # GET /likes/1 or /likes/1.json
+  def show
+  end
+
   # DELETE /likes/1 or /likes/1.json
   def destroy
     @like.destroy
@@ -38,6 +42,20 @@ class LikesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET /likes or /likes.json
+  # def index
+  #   @likes = Like.all
+  # end
+
+  # GET /likes/new
+  # def new
+  #   @like = Like.new
+  # end
+
+  # GET /likes/1/edit
+  # def edit
+  # end
 
   private
 
@@ -57,21 +75,3 @@ class LikesController < ApplicationController
     params.require(:like).permit(:fan_id, :photo_id)
   end
 end
-
-# GET /likes or /likes.json
-# def index
-#   @likes = Like.all
-# end
-
-# GET /likes/1 or /likes/1.json
-# def show
-# end
-
-# GET /likes/new
-# def new
-#   @like = Like.new
-# end
-
-# GET /likes/1/edit
-# def edit
-# end
