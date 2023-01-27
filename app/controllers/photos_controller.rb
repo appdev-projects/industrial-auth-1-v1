@@ -2,6 +2,15 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit update destroy ]
 
   before_action :ensure_current_user_is_owner, only: [destroy, edit, update]
+
+  def ensure_current_user_is_owner
+    if !@photo.owner == current_user
+      respond_to do |format|
+        format.html { redirect_back(fallback_location: root_url, alert: "Not authorized") }
+        format.json { head :no_content }
+      end
+    end
+  end
   
   # GET /photos or /photos.json
   def index
