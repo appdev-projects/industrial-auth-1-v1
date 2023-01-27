@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ edit update destroy ]
-  before_action :ensure_authorized_user, only: %i[ edit create update destroy ]
+  before_action :ensure_authorized_user, only: %i[ edit update destroy ]
   
   # GET /comments/1/edit
   def edit
@@ -57,10 +57,8 @@ class CommentsController < ApplicationController
   end
 
   def ensure_authorized_user
-    if current_user == @comment.author 
-      true
-    else
-      false
+    if current_user != @comment.author 
+      redirect_back(fallback_location: root_url, alert: "Not authorized")
     end
   end 
 

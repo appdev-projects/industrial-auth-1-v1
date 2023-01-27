@@ -52,10 +52,8 @@ class FollowRequestsController < ApplicationController
   end
 
   def ensure_authorized_user
-    if current_user == @follow_request.sender
-      true
-    else
-      false
+    if current_user != @follow_request.sender && current_user != @follow_request.recipient
+      redirect_back(fallback_location: root_url, alert: "Not authorized")
     end
   end
 

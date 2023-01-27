@@ -47,10 +47,8 @@ class LikesController < ApplicationController
   end
 
   def ensure_authorized_user
-    if current_user == @like.fan
-      true
-    else
-      false
+    if current_user != @like.fan
+      redirect_back(fallback_location: root_url, alert: "Not authorized")
     end
   end
 
