@@ -1,10 +1,10 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit update destroy ]
 
-  before_action :ensure_current_user_is_owner, only: [destroy, edit, update]
+  before_action :ensure_current_user_is_owner, only: [:destroy, :edit, :update]
 
   def ensure_current_user_is_owner
-    if !@photo.owner == current_user
+    if current_user != @photo.owner
       respond_to do |format|
         format.html { redirect_back(fallback_location: root_url, alert: "Not authorized") }
         format.json { head :no_content }
@@ -61,17 +61,10 @@ class PhotosController < ApplicationController
 
   # DELETE /photos/1 or /photos/1.json
   def destroy
-    if @photo.owner == current_user
-      @photo.destroy
-      respond_to do |format|
-        format.html { redirect_back fallback_location: root_url, notice: "Photo was successfully destroyed." }
-        format.json { head :no_content }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_back fallback_location: root_url, alert: "Photo is not yours to delete." }
-        format.json { head :no_content }
-      end
+    @photo.destroy
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_url, notice: "Photo was successfully destroyed." }
+      format.json { head :no_content }
     end
   end
 
