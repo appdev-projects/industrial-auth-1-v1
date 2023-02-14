@@ -17,8 +17,12 @@
         <td><%= comment.photo_id %></td>
         <td><%= comment.body %></td>
         <td><%= link_to 'Show', comment %></td>
-        <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-        <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <% if current_user == comment.author %>
+          <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+          <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
