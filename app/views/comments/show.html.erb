@@ -15,5 +15,9 @@
   <%= @comment.body %>
 </p>
 
-<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<% if current_user == comment.author %>
+  <%= link_to 'Edit', edit_comment_path(@comment) %> |
+<% else %>
+<% end%>
+
 <%= link_to 'Back', comments_path %>

@@ -1,0 +1,92 @@
+<% @user.feed.includes(:owner, { :comments => [:author] }).each do |photo| %>
+
+  <% cache photo do %>
+    <div class="row mb-4">
+      <div class="col-md-6 offset-md-3">
+        <%= render "photos/photo", photo: photo %>
+      </div>
+    </div>
+  <% end %>
+
+<% end %>
+
+<div class="row mb-4">
+  <div class="col-md-6 offset-md-3">
+    <h1 class="display-4">
+
+      Subscribe to One of our Delivery Plans
+
+    </h1>
+
+    <p class="lead text-muted">posts liked by people you follow</p>
+  </div>
+</div>
+
+<% @user.discover.each do |photo| %>
+  <div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+      <%= render "photos/photo", photo: photo %>
+    </div>
+  </div>
+<% end %>
+
+<div class="vc_row-full-width vc_clearfix"></div>
+<div data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row box-wellcome3 vc_custom_1559235661989 vc_row-has-fill">
+  <div class="wpb_column column_container col-sm-12">
+    <div class="vc_column-inner">
+      <div class="wpb_wrapper">
+        <div class=" s7upf_1678880993">
+          <div class="dot-rect float-text-center"><span></span></div>
+          <h2 class="mb-text-header wow  rale-font text-center  s7upf_1678880991 s7upf_1678880992 s7upf_1678880994">QUICK GAS</h2>
+        </div>
+        <div class=" s7upf_1678880995">
+          <p class="mb-text-header wow   text-center desc  s7upf_1678880996">Affordable | Flexible | Committed</p>
+        </div>
+        <div class=" s7upf_1678880997">
+          <p class="mb-text-header wow   text-center desc  s7upf_1678880998">YOU ARE 3 STEPS AWAY FROM YOUR COOKING GAS WAHALA</p>
+        </div>
+        <div class="vc_row wpb_row vc_inner vc_custom_1495769258218">
+          <div class="wpb_column column_container col-sm-4">
+            <div class="vc_column-inner vc_custom_1499243075123">
+              <div class="wpb_wrapper">
+                <div class="item-service3 mb-service-style4 text-center  ">
+                  <a href="#" onclick="return false;" target="_parent" class="service-icon color text-center" title="">
+                    <i class="fa fa fa-user-circle-o"></i>
+                  </a>
+                  <h3 class="title18 rale-font font-bold">1</h3>
+                  <p class="desc">Select your preferred product</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wpb_column column_container col-sm-4">
+            <div class="vc_column-inner vc_custom_1499243087665">
+              <div class="wpb_wrapper">
+                <div class="item-service3 mb-service-style4 text-center  ">
+                  <a href="#" onclick="return false;" target="_parent" class="service-icon color text-center" title="">
+                    <i class="fa fa fa-money"></i>
+                  </a>
+                  <h3 class="title18 rale-font font-bold">2</h3>
+                  <p class="desc">Place and pay for your order securely online</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wpb_column column_container col-sm-4">
+            <div class="vc_column-inner vc_custom_1499243094090">
+              <div class="wpb_wrapper">
+                <div class="item-service3 mb-service-style4 text-center  ">
+                  <a href="#" onclick="return false;" target="_parent" class="service-icon color text-center" title="">
+                    <i class="fa fa fa-bus"></i>
+                  </a>
+                  <h3 class="title18 rale-font font-bold">3</h3>
+                  <p class="desc">Your gas is delivered to your doorstep</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

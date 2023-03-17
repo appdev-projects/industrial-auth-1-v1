@@ -1,6 +1,16 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
 
+  before_action :ensure_current_user_is_owner, only: [:destroy, :update, :edit]
+
+  #  def ensure_current_user_ownscomment
+  #    @photo = Photo.find(params.fetch(:comment).fetch(:photo_id))
+  #
+  #    if @photo.owner.private? || @photo.owner != current_user || !current_user.leaders.include?(@photo.owner)
+  #      redirect_back(fallback_location: root_url, alert: "You're not authorized for that.")
+  #    end
+  #  end
+
   # GET /comments or /comments.json
   def index
     @comments = Comment.all
@@ -32,6 +42,7 @@ class CommentsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
+      format.js
     end
   end
 
@@ -54,17 +65,27 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_back fallback_location: root_url, notice: "Comment was successfully destroyed." }
       format.json { head :no_content }
+      format.js do
+        render template: "comments/destroy.js.erb"
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.require(:comment).permit(:author_id, :photo_id, :body)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def ensure_current_user_is_owner
+    if current_user != @comment.author
+      redirect_back fallback_location: root_url, alert: "You're not authorized for that."
     end
+  end
+
+  # Only allow a list of trusted parameters through.
+  def comment_params
+    params.require(:comment).permit(:author_id, :photo_id, :body)
+  end
 end

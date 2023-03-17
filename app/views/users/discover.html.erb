@@ -1,18 +1,32 @@
-<div class="row mb-4">
-  <div class="col-md-6 offset-md-3">
-    <h1 class="display-4">
-      discover
-
-    </h1>
-    
-    <p class="lead text-muted">posts liked by people you follow</p>
-  </div>
-</div>
-
-<% @user.discover.each do |photo| %>
-  <div class="row mb-4">
-    <div class="col-md-6 offset-md-3">
-      <%= render "photos/photo", photo: photo %>
+<div class="card-group">
+  <div class="card text-center">
+    <img src="https://img.freepik.com/premium-vector/red-gas-cylinder-white-background_627700-63.jpg" class="card-img-top" alt="Small Gas Cylinder">
+    <div class="card-body">
+      <h5 class="card-title">Small Cylinder</h5>
+      <p class="card-text">This cylinder needs to be refilled once a month for a family of 2 that cooks three times a day.</p>
+    </div>
+    <div class="card-footer">
+      <a href="#" class="btn btn-success">Subscribe to Small Plan</a>
     </div>
   </div>
-<% end %>
+  <div class="card text-center"">
+    <img src="https://img.freepik.com/premium-vector/red-gas-cylinder-white-background_627700-63.jpg" class="card-img-top" alt="Medium Gas Cylinder">
+    <div class="card-body">
+      <h5 class="card-title">Medium Cylinder</h5>
+      <p class="card-text">This cylinder needs to be refilled once a month for a family of 4 that cooks three times a day.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Out of Stock</small>
+    </div>
+  </div>
+  <div class="card text-center">
+    <img src="https://img.freepik.com/premium-vector/red-gas-cylinder-white-background_627700-63.jpg" class="card-img-top" alt="Large Gas Cylinder">
+    <div class="card-body">
+      <h5 class="card-title">Large Cylinder</h5>
+      <p class="card-text">This cylinder needs to be refilled once a month for a family of 8 that cooks three times a day.</p>
+    </div>
+    <div class="card-footer">
+      <a href="#" class="btn btn-success">Subscribe to Large Plan</a>
+    </div>
+  </div>
+</div>

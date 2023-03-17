@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Subscription #<%= @the_subscription.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/subscriptions">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_subscription/<%= @the_subscription.id %>">
+          Remove User from Plan
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Bio
+      </dt>
+      <dd>
+        <%= @the_subscription.bio %>
+      </dd>
+
+      <dt>
+        Owner
+      </dt>
+      <dd>
+        <%= @the_subscription.owner_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_subscription.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_subscription.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit subscription
+    </h2>
+
+    <form action="/modify_subscription/<%= @the_subscription.id %>"  method="post" >
+      <div>
+        <label for="bio_box">
+          Bio
+        </label>
+
+        <input type="text" id="bio_box" name="query_bio" value="<%= @the_subscription.bio %>">
+      </div>
+
+      <div>
+        <label for="owner_id_box">
+          Owner
+        </label>
+
+        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_subscription.owner_id %>">
+      </div>
+
+      <button>
+        Update subscription
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

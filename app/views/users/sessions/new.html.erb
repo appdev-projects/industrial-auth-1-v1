@@ -1,51 +1,109 @@
-<div class="row">
-  <div class="offset-md-3 col-md-6">
-    <div class="card mb-3">
-      <h5 class="card-header">
-        <%= resource_name != "user" ? resource_name.to_s.titleize : "" %> Sign In
-      </h5>
+    
+<table width=70% height=70%>
 
-      <div class="card-body">
-        <% if flash[:notice].present? %>
-          <div class="alert alert-info" role="alert">
-            <%= flash[:notice] %>
-          </div>
-        <% end %>
+  <tr>
 
-        <% if flash[:alert].present? %>
-          <div class="alert alert-danger" role="alert">
-            <%= flash[:alert] %>
-          </div>
-        <% end %>
+    <td width=50% height=100%>
 
-        <% form_html_options = { novalidate: true, class: "mb-3" } %>
+      <img width=100% height=100% src="https://cdn1.iconfinder.com/data/icons/green-energy-bio-fuel-colored/74/Untitled-1-25-512.png" alt="Company official picture">
 
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: form_html_options) do |f| %>
-          <div class="form-group">
-            <%= f.label :email %>
-            <%= f.email_field :email, autofocus: true, class: "form-control" %>
-          </div>
+    </td>
 
-          <div class="form-group">
-            <%= f.label :password %>
-            <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-          </div>
 
-          <% if devise_mapping.rememberable? -%>
-            <div class="form-check mb-3">
-              <%= f.label :remember_me, class: "form-check-label" do %>
-                <%= f.check_box :remember_me, class: "form-check-input" %> Remember me
+    <td width=50%>
+      <style>
+        body {
+          -ms-overflow-style: scrollbar;
+          overflow-y: scroll;
+          overscroll-behavior-y: none;
+        }
+
+        .signinContainer {
+          background-color: #FFF;
+          color: #0F1419;
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 10%;
+          font-family: Helvetica, sans-serif;
+          font-size: 16px;
+        }
+
+            .signinFooter {
+        color: #657786;
+        font-size: 80%;
+        line-height: 1.5;
+        padding: 1em 0;
+            }
+
+            .signinFooter a,
+            .signinFooter a:visited {
+        color: #657786;
+        text-decoration: none;
+        padding-right: 1em;
+            }
+
+            .signinFooter a:hover,
+            .signinFooter a:active {
+        text-decoration: underline;
+            }
+      </style>
+
+      <div class="row">
+        <div class="offset-md-3 col-md-6">
+          <div class="card mb-3">
+            <h5 class="card-header">
+              <%= resource_name != "user" ? resource_name.to_s.titleize : "" %> Sign In
+            </h5>
+
+            <div class="card-body">
+              <% if flash[:notice].present? %>
+                <div class="alert alert-info" role="alert">
+                  <%= flash[:notice] %>
+                </div>
+              <% end %>
+
+              <% if flash[:alert].present? %>
+                <div class="alert alert-danger" role="alert">
+                  <%= flash[:alert] %>
+                </div>
+              <% end %>
+
+              <% form_html_options = { novalidate: true, class: "mb-3" } %>
+
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: form_html_options) do |f| %>
+                <div class="form-group">
+                  <%= f.label :email %>
+                  <%= f.email_field :email, autofocus: true, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :password %>
+                  <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                </div>
+
+                <% if devise_mapping.rememberable? -%>
+                  <div class="form-check mb-3">
+                    <%= f.label :remember_me, class: "form-check-label" do %>
+                      <%= f.check_box :remember_me, class: "form-check-input" %> Remember me
+                    <% end %>
+                  </div>
+                <% end -%>
+
+                <%= f.submit "Sign in", class: "btn btn-outline-primary btn-block" %>
+
+                <hr>
+
+                <%= render "users/shared/links" %>
               <% end %>
             </div>
-          <% end -%>
-
-          <%= f.submit "Sign in", class: "btn btn-outline-primary btn-block" %>
-
-          <hr>
-
-          <%= render "users/shared/links" %>
-        <% end %>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+
+    </td>
+  </tr>
+</table>
+
+<p class="signinFooter">
+  © 2023 App Dev2 Final Project. The University of Chicago Booth School of Business.
+</p>

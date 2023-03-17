@@ -1,0 +1,102 @@
+<div>
+  <div>
+    <h1>
+      List of all subscriptions
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new subscription
+    </h2>
+
+    <form action="/insert_subscription" method="post">
+      <div>
+        <label for="bio_box">
+          Bio
+        </label>
+
+        <input type="text" id="bio_box" name="query_bio">
+      </div>
+
+      <div>
+        <label for="owner_id_box">
+          Owner
+        </label>
+
+        <input type="text" id="owner_id_box" name="query_owner_id">
+      </div>
+
+      <button>
+        Create subscription
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Bio
+        </th>
+
+        <th>
+          Owner
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_subscriptions.each do |a_subscription| %>
+      <tr>
+        <td>
+          <%= a_subscription.id %>
+        </td>
+
+        <td>
+          <%= a_subscription.bio %>
+        </td>
+
+        <td>
+          <%= a_subscription.owner_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_subscription.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_subscription.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/subscriptions/<%= a_subscription.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
