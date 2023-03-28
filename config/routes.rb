@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :comments
-  resources :follow_requests
-  resources :likes
-  resources :photos
+  resources :follow_requests, except: [:index, :show, :new] #don't want get routes, but do want create update destroy
+  resources :likes, only: [:create, :destroy] #don't need update because only 2 options here
+  resources :photos, except: [:index, :show]
 
   get ":username" => "users#show", as: :user
   get ":username/liked" => "users#liked", as: :liked
