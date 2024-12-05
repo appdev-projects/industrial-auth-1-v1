@@ -20,9 +20,10 @@ class PhotosController < ApplicationController
   end
 
   # POST /photos or /photos.json
+  #I noticed that the page would break if an invalid image file is entered, how to fix this?
   def create
     @photo = Photo.new(photo_params)
-    @photo.owner = current_user
+    #need an implementation for verify the validity of the given image address
 
     respond_to do |format|
       if @photo.save
@@ -50,11 +51,18 @@ class PhotosController < ApplicationController
 
   # DELETE /photos/1 or /photos/1.json
   def destroy
-    @photo.destroy
-    respond_to do |format|
-      format.html { redirect_back fallback_location: root_url, notice: "Photo was successfully destroyed." }
-      format.json { head :no_content }
+    owner = @photo.owner
+
+    if current_user == owner
+      @photo.destroy
+      respond_to do |format|
+        format.html { redirect_back fallback_location: root_url, notice: "Photo was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      redirect_back(fallback_location: { action: "show", id: @photo.id }, alert: "You can't delete photos that's not yours.")
     end
+
   end
 
   private
