@@ -3,17 +3,18 @@
     <%= render "users/user", user: @user %>
   </div>
 </div>
-
-<div class="row mb-2">
-  <div class="col-md-6 offset-md-3">
-    <%= render "users/profile_nav", user: @user %>
-  </div>
-</div>
-
-<% @user.own_photos.each do |photo| %>
-  <div class="row mb-4">
+<% if @user.private == false || FollowRequest.find_by(sender_id: current_user, recipient_id: @user.id, status: "accepted") != nil %>
+  
+  <div class="row mb-2">
     <div class="col-md-6 offset-md-3">
-      <%= render "photos/photo", photo: photo %>
+      <%= render "users/profile_nav", user: @user %>
     </div>
   </div>
+  <% @user.own_photos.each do |photo| %>
+    <div class="row mb-4">
+      <div class="col-md-6 offset-md-3">
+        <%= render "photos/photo", photo: photo %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
