@@ -1,6 +1,14 @@
 class LikesController < ApplicationController
   before_action :set_like, only: %i[ show edit update destroy ]
 
+  before_action :ensure_current_user, only: [:create, :destroy]
+
+  def ensure_current_user
+    if current_user != @likes.fan
+      redirect_back(fallback_location: root_url, alert: "You're not authorized to do that.")
+    end
+  end
+
   # GET /likes or /likes.json
   def index
     @likes = Like.all
