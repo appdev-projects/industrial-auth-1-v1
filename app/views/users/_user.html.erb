@@ -48,7 +48,7 @@
 
         <% end %>
       </div>
-
+      <% if current_user.username == user.username%>
       <div class="col">
         <%=
           link_to "#",
@@ -64,9 +64,11 @@
           pending
 
         <% end %>
+        
       </div>
+      <% end %>
     </div>
-
+    
     <div class="row mb-3">
       <div class="col">
         <% follow_request = current_user.pending_received_follow_requests.find_by(sender: @user) %>
