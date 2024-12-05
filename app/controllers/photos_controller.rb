@@ -1,13 +1,11 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit update destroy ]
+  before_action :ensure_authorized_user, only: %i[ update destroy ]
 
-  # GET /photos or /photos.json
-  def index
-    @photos = Photo.all
-  end
-
-  # GET /photos/1 or /photos/1.json
-  def show
+  def ensure_authorized_user
+    if current_user != @photo.owner
+      redirect_back(fallback_location: root_url, alert: "You are not authorized for that")
+    end
   end
 
   # GET /photos/new
@@ -50,21 +48,35 @@ class PhotosController < ApplicationController
 
   # DELETE /photos/1 or /photos/1.json
   def destroy
-    @photo.destroy
-    respond_to do |format|
-      format.html { redirect_back fallback_location: root_url, notice: "Photo was successfully destroyed." }
-      format.json { head :no_content }
+    if current_user == @photo.owner
+      @photo.destroy
+      respond_to do |format|
+        format.html { redirect_back fallback_location: root_url, notice: "Photo was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      redirect_back(fallback_location: root_url, alert: "nice try, sucker!!!")
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_photo
-      @photo = Photo.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def photo_params
-      params.require(:photo).permit(:image, :comments_count, :likes_count, :caption, :owner_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_photo
+    @photo = Photo.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def photo_params
+    params.require(:photo).permit(:image, :comments_count, :likes_count, :caption, :owner_id)
+  end
 end
+
+# GET /photos or /photos.json
+# def index
+#   @photos = Photo.all
+# end
+
+# GET /photos/1 or /photos/1.json
+# def show
+# end
